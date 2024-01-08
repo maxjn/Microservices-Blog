@@ -1,0 +1,41 @@
+# Node.js
+node_modules/
+
+# TypeScript
+*.tsbuildinfo
+*.js
+*.js.map
+
+# Dependency directories
+# https://docs.npmjs.com/cli/v7/configuring-npm/package-json#workspaces
+/node_modules
+/dist
+/dist-ts
+/.pnp
+.pnp.js
+
+# IDE files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Test coverage
+/coverage
+
+# Logs
+logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# Build output
+/build
+/out

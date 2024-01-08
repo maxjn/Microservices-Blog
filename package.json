@@ -1,0 +1,23 @@
+{
+  "name": "microservices",
+  "version": "1.0.0",
+  "description": "This is a basic MERN crud project bootstrapped with [`Vite`](https://vitejs.dev/).",
+  "main": "index.js",
+  "scripts": {
+    "install-admin-server": "cd backend-sequelize-ts && npm install",
+    "install-main-server": "cd backend-sequelize-ts && npm install",
+    "start-admin-server": "cd backend-sequelize-ts && tsc && node ./dist/server.js",
+    "start-main-server": "cd backend-sequelize-ts && tsc && node ./dist/server.js",
+    "install-frontend": "cd frontend && npm install",
+    "build-frontend": "cd frontend && npm run build",
+    "start-frontend": "cd frontend && npm run preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2",
+    "validator": "^13.11.0"
+  }
+}
