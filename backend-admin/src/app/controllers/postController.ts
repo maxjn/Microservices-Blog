@@ -1,12 +1,20 @@
 import { PostControllerFunction } from "types/controllers/type";
 
+// AMQP
+import { getAmqpChannel } from "../../config/amqp/amqpConnection";
+import { publish } from "../../config/amqp/publisher";
+
 import Post from "../../app/models/postModel";
+import { publishMessage } from "../../utils/amqp/publishers";
 // GET all posts
 export const getAllPosts: PostControllerFunction = async (req, res) => {
   try {
     const posts = await Post.findAll({
       order: [["createdAt", "ASC"]],
     });
+
+    await publishMessage()
+
     res.status(200).json(posts);
   } catch (error) {
     res.status(400).json({ error: error.message });

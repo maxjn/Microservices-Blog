@@ -3,6 +3,9 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 
+// Modules
+import { start as startAMQP, getAmqpConn } from "./config/amqp/amqpConnection";
+
 // Config
 import sequelize from "./config/database";
 
@@ -27,11 +30,15 @@ app.use("/api/posts", postRoutes);
 // Connection
 
 sequelize
-  .sync({alter:true})
+  .sync()
   .then(async () => {
     try {
       await sequelize.authenticate();
 
+      // Start RabbitMQ connection
+      startAMQP(process.env.RABBITMQ_URL);
+
+      // Start Server
       app.listen(process.env.PORT, () => {
         console.log("Server Is Listening ON Port: ", process.env.PORT);
       });

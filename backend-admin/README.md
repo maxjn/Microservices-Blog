@@ -4,7 +4,6 @@ This is a basic BACKEND project with crud functionality bootstrapped using **Exp
 
 <!-- explore the demo [here](https://maxjn-.vercel.app/) -->
 
-
 ## Technologies
 
 - Node
@@ -15,6 +14,7 @@ This is a basic BACKEND project with crud functionality bootstrapped using **Exp
 
 ## Features
 
+- RabbitMQ Message Brocker Module
 - Adding posts
 - deleting posts
 - updating posts
@@ -24,9 +24,7 @@ This is a basic BACKEND project with crud functionality bootstrapped using **Exp
 
 ###### Add Environment Variables
 
-
 Install **Packages** with npm
-
 
 ###### backend
 
@@ -36,6 +34,17 @@ npm install
 npm run start
 ```
 
+###### backend Development
+
+```shell
+npm install
+
+# Run Rabbitmq Image
+docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.12-management
+
+
+npm run start
+```
 
 ## Installation (Production)
 
