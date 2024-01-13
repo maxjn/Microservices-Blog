@@ -6,8 +6,6 @@ import cors from "cors";
 // Modules
 import { start as startAMQP } from "./config/amqp/amqpConnection";
 
-// Config
-import sequelize from "./config/database";
 
 // Routes
 import postRoutes from "./routes/postRoutes";
@@ -29,11 +27,8 @@ app.use("/api/posts", postRoutes);
 
 // Connection
 
-sequelize
-  .sync()
-  .then(async () => {
+
     try {
-      await sequelize.authenticate();
 
       // Start RabbitMQ connection
       startAMQP(process.env.RABBITMQ_URL);
@@ -45,5 +40,4 @@ sequelize
     } catch (error) {
       console.log("Server Error:", error);
     }
-  })
-  .catch((err) => console.log("Connection Error: ", err));
+ 

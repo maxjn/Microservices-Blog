@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    
+    "target": "ES6" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "module": "NodeNext",
+    "baseUrl": "./src",
+    "outDir": "./dist",
+    "noImplicitAny": true,
+    "sourceMap": true,
+    
+  },
+  "include": ["src/**/*"]
+}

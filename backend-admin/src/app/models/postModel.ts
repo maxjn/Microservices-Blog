@@ -4,7 +4,7 @@ import { DataTypes, Model, Optional } from "sequelize";
 interface PostAttributes {
   id: number;
   title: string;
-  image: number;
+  image: string;
   like: number;
 }
 
@@ -14,7 +14,7 @@ interface PostCreationAttributes extends Optional<PostAttributes, "id"> {}
 class Post extends Model<PostAttributes, PostCreationAttributes> implements PostAttributes {
   public id!: number;
   public title!: string;
-  public image!: number;
+  public image!: string;
   public like!: number;
 
   // timestamps!
