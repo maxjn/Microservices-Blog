@@ -5,7 +5,7 @@ import { getAmqpChannel } from "../../config/amqp/amqpConnection";
 import { publish } from "../../config/amqp/publisher";
 
 import Post from "../../app/models/postModel";
-import { publishMessage } from "../../utils/amqp/publishers";
+import { messageToQueue, publishMessage } from "../../utils/amqp/publishers";
 // GET all posts
 export const getAllPosts: PostControllerFunction = async (req, res) => {
   try {
@@ -40,6 +40,7 @@ export const createPost: PostControllerFunction = async (req, res) => {
 
   try {
     const post = await Post.create({ title, image });
+    messageToQueue('create_post',post)
     res.status(200).json(post);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -84,6 +85,8 @@ export const deletePost: PostControllerFunction = async (req, res) => {
       return; // Exit the function
     }
 
+    messageToQueue('delete_post',{id})
+
     res.status(200).json({ id: numericId });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -117,6 +120,8 @@ export const updatePost: PostControllerFunction = async (req, res) => {
       res.status(404).json({ error: "No such post" });
       return;
     }
+
+    messageToQueue('update_post',{post:updatePost})
 
     res.status(200).json(updatedPost);
   } catch (error) {

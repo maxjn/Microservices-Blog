@@ -22,3 +22,24 @@ export async function publishMessage() {
     console.error('AMQP channel not available');
   }
 }
+
+// Assume you have a route or function where you want to publish a message
+export async function messageToQueue(quque:string,message:object) {
+  const channel = getAmqpChannel();
+  
+  if (channel) {
+    // Use the publish function to send a message to a queue or exchange
+    const messageContent = Buffer.from(JSON.stringify(message));
+    publish(
+      channel,
+      quque,
+      quque,
+      messageContent,
+      'queue', // or 'exchange'
+      'direct', // or other exchange type
+      {durable:true} // exchange options
+    );
+  } else {
+    console.error('AMQP channel not available');
+  }
+}

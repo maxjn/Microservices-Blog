@@ -49,7 +49,7 @@ function whenConnected () {
 
         // Now you can use the channel
         startPublisher(channel);
-        startWorkerFunction(amqpChannel);
+        // startWorkerFunction(amqpChannel);
       });
     }
   }

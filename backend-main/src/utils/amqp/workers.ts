@@ -30,3 +30,30 @@ export async function startWorkerFunction(channel: amqp.Channel | null) {
     console.error("AMQP channel not available");
   }
 }
+
+export async function statrtPostWorker(channel: amqp.Channel | null,queueName:'create_post'|'update_post'|'delete_post') {
+  //   const channel = getAmqpChannel();
+
+  async function processMessageCallback(msg: ConsumeMessage): Promise<boolean> {
+    // Custom processing logic here
+    console.log("Custom processing logic:", msg.content.toString());
+  
+    // Returning true acknowledges the message, false rejects it
+    return true;
+  }
+
+  if (channel) {
+    // Use the startWorker function to start processing messages from a queue or exchange
+    startWorker({
+      channel,
+      destination: queueName,
+      destinationType: "queue", // or 'exchange'
+      exchangeType: "direct", // or other exchange type
+      exchangeOptions: {}, // exchange options
+      processCallback: processMessageCallback as ProcessCallbackType ,
+    });
+  } else {
+    console.error("AMQP channel not available");
+  }
+}
+
