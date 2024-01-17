@@ -13,7 +13,7 @@ import postRoutes from "./routes/postRoutes";
 const app = express();
 
 const corsOptions = {
-  origin: process.env.FRONTEND_URI, // frontend URI (ReactJS)
+  origin: [process.env.FRONTEND_URI,process.env.BACKEND_ADMIN_URL], // frontend URI (ReactJS)
 };
 
 // Middlewares

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { Channel, ConsumeMessage  } from 'amqplib/callback_api';
+import { Channel, ConsumeMessage } from "amqplib/callback_api";
+import { post } from "@prisma/client";
 
 // Controllers & Middlewares
 export interface ControllerFunction {
@@ -14,13 +15,19 @@ export interface PostControllerFunction {
   (req: Request, res: Response, next: NextFunction): Promise<void>;
 }
 
+export interface CreatePostControllerFunction {
+  (data: post): Promise<boolean>;
+}
+
+export interface DeletePostControllerFunction {
+  (data: {id:string}): Promise<boolean>;
+}
 
 // RabbitMQ
 
-export type DestinationType = 'queue' | 'exchange';
+export type DestinationType = "queue" | "exchange";
 
-export type ExchangeType = 'direct' | 'fanout' | 'topic' | 'headers';
-
+export type ExchangeType = "direct" | "fanout" | "topic" | "headers";
 
 // Publisher
 export type PublishOptionsType = {
@@ -33,9 +40,9 @@ export type PublishOptionsType = {
   exchangeOptions?: any;
 };
 
-
-export type OfflinePubQueueType = Array<[string, string, Buffer, DestinationType,ExchangeType,any]>
-
+export type OfflinePubQueueType = Array<
+  [string, string, Buffer, DestinationType, ExchangeType, any]
+>;
 
 // Worker''
 
@@ -45,7 +52,7 @@ export type WorkerOptionsType = {
   channel: Channel;
   destination: string; // Queue or Exchange name
   destinationType: DestinationType;
-  exchangeType?: ExchangeType; 
+  exchangeType?: ExchangeType;
   exchangeOptions?: any;
   processCallback: ProcessCallbackType;
 };

@@ -79,7 +79,6 @@ export const deletePost: PostControllerFunction = async (req, res) => {
 
   try {
     const deletedCount = await Post.destroy({ where: { id } });
-
     if (deletedCount === 0) {
       res.status(404).json({ error: "No such Post" });
       return; // Exit the function
@@ -120,8 +119,7 @@ export const updatePost: PostControllerFunction = async (req, res) => {
       res.status(404).json({ error: "No such post" });
       return;
     }
-
-    messageToQueue('update_post',{post:updatePost})
+    messageToQueue('update_post',updatedPost)
 
     res.status(200).json(updatedPost);
   } catch (error) {
@@ -153,6 +151,8 @@ export const likePost: PostControllerFunction = async (req, res) => {
     post.like++;
 
     await post.save();
+
+    messageToQueue('like_post',{id})
 
     res.status(200).json(post);
   } catch (error) {

@@ -4,7 +4,7 @@ import amqp from 'amqplib/callback_api';
 // Modules
 import { startPublisher, publish } from './publisher';
 import { startWorker } from './worker';
-import { startWorkerFunction } from '../../utils/amqp/workers';
+import { startPostWorker, startWorkerFunction } from '../../utils/amqp/workers';
 
 
 let amqpConn: amqp.Connection | null = null;
@@ -50,6 +50,10 @@ function whenConnected () {
         // Now you can use the channel
         startPublisher(channel);
         startWorkerFunction(amqpChannel);
+        startPostWorker(amqpChannel,'create_post')
+        startPostWorker(amqpChannel,'delete_post')
+        startPostWorker(amqpChannel,'update_post')
+        startPostWorker(amqpChannel,'like_post')
       });
     }
   }
